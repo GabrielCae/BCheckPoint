@@ -1,0 +1,6 @@
+- Criação, remoção, edição etc de usuário
+- Autenticação
+- Estatísticas sobre número de faltas
+- Horários que as pessoas costumam iniciar/terminar
+- Férias
+- Filtros

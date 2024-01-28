@@ -1,0 +1,26 @@
+// npx prisma migrate dev -> Criar Migration
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = "file:./server.db"
+}
+
+model User {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    email     String   @unique
+    password  String
+    name      String
+    startTime DateTime
+    vacations Boolean  @default(false)
+}
+
+model CheckPoints {
+    id   String   @id @default(uuid())
+    name String
+    time DateTime @default(now())
+}

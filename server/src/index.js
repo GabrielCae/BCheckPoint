@@ -48,12 +48,29 @@ app.post("/user/create", async (req, res) => {
         res.send("Usuário " + req.body.name + " criado com sucesso")
     } catch (e) {
         console.log(e)
-        res.send("Não foi possível criar o usuário, tente novamente mais tarde.")
+        res.send("Não foi possível criar o usuário.")
     }
 })
 
 app.put("/user/:name", async (req, res) => {
-    console.log(req.body)
+    res.statusCode = 400
+    const user = await UserController.findByEmail({ email: req.body.email })
+
+    if (user == null) {
+        res.send("Não foi possível encontrar um usuário com o email inserido.")
+        return
+    }
+
+    try {
+       await UserController.modify({
+            id: user.id,
+            email: req.body.email,
+            
+       })
+    } catch (e) {
+        console.log(e)    
+        res.send(`Não foi possível editar o usuário solicitado. (Email: ${req.body.email})`)
+    }
 })
 
 app.get("/user/:name", async (req, res) =>
